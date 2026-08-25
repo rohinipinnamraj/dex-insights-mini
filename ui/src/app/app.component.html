@@ -1,0 +1,74 @@
+<div class="app-layout">
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <div class="logo-icon">D</div>
+
+      <div>
+        <div class="logo-title">Dex Insights</div>
+        <div class="logo-subtitle">Mini</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a
+        routerLink="/stores"
+        routerLinkActive="active"
+      >
+        <span class="nav-icon">▦</span>
+        Stores
+      </a>
+
+      <a
+        routerLink="/insights"
+        routerLinkActive="active"
+      >
+        <span class="nav-icon">⌁</span>
+        Insights
+      </a>
+
+      <a
+        routerLink="/chat"
+        routerLinkActive="active"
+      >
+        <span class="nav-icon">◯</span>
+        Chat
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      Dex Insights Mini
+    </div>
+
+  </aside>
+
+  <div class="main-area">
+
+    <header class="topbar">
+
+      <div>
+        <div class="topbar-title">
+          Store Operations
+        </div>
+
+        <div class="topbar-subtitle">
+          Operational health and insights
+        </div>
+      </div>
+
+      <div class="environment-badge">
+        Local
+      </div>
+
+    </header>
+
+    <main class="page-container">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>

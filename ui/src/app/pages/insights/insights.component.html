@@ -1,0 +1,355 @@
+<div class="page-header">
+
+  <div>
+    <h1>Operational Insights</h1>
+    <p>
+      Understand store health, incident severity and operational risk.
+    </p>
+  </div>
+
+  <button
+    class="refresh-button"
+    (click)="loadInsights()"
+  >
+    Refresh
+  </button>
+
+</div>
+
+
+<div
+  *ngIf="loading"
+  class="message-card"
+>
+  Loading operational insights...
+</div>
+
+
+<div
+  *ngIf="errorMessage"
+  class="message-card error"
+>
+  {{ errorMessage }}
+</div>
+
+
+<div *ngIf="insights && !loading">
+
+  <!-- SUMMARY CARDS -->
+
+  <div class="summary-grid">
+
+    <div class="summary-card">
+
+      <div class="summary-icon pump-icon">
+        P
+      </div>
+
+      <div>
+        <div class="summary-label">
+          Highest Offline Pumps
+        </div>
+
+        <div class="summary-value">
+          {{ insights.topOfflinePumpStores[0]?.value || 0 }}
+        </div>
+
+        <div class="summary-note">
+          Store
+          {{ insights.topOfflinePumpStores[0]?.storeId || '-' }}
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon incident-icon">
+        !
+      </div>
+
+      <div>
+        <div class="summary-label">
+          Total Incidents
+        </div>
+
+        <div class="summary-value">
+          {{ totalIncidents }}
+        </div>
+
+        <div class="summary-note">
+          Across all severities
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon high-icon">
+        ↑
+      </div>
+
+      <div>
+        <div class="summary-label">
+          High Severity
+        </div>
+
+        <div class="summary-value">
+          {{ highIncidents }}
+        </div>
+
+        <div class="summary-note danger">
+          Requires attention
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon anomaly-icon">
+        A
+      </div>
+
+      <div>
+        <div class="summary-label">
+          Highest Anomalies
+        </div>
+
+        <div class="summary-value">
+          {{ insights.topAnomalyStores[0]?.value || 0 }}
+        </div>
+
+        <div class="summary-note">
+          Store
+          {{ insights.topAnomalyStores[0]?.storeId || '-' }}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- MAIN GRID -->
+
+  <div class="insights-grid">
+
+
+    <!-- OFFLINE PUMPS -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <div>
+          <h2>Stores by Offline Pumps</h2>
+          <p>Locations with the highest pump outages.</p>
+        </div>
+
+        <a routerLink="/stores">
+          View stores →
+        </a>
+
+      </div>
+
+
+      <div class="ranking-list">
+
+        <div
+          class="ranking-row"
+          *ngFor="let store of insights.topOfflinePumpStores"
+        >
+
+          <div class="ranking-info">
+
+            <a
+              [routerLink]="['/stores', store.storeId]"
+              class="store-link"
+            >
+              Store {{ store.storeId }}
+            </a>
+
+            <span>
+              {{ store.value }} offline pumps
+            </span>
+
+          </div>
+
+
+          <div class="bar-container">
+
+            <div
+              class="bar offline-bar"
+              [style.width.%]="getOfflineWidth(store.value)"
+            >
+            </div>
+
+          </div>
+
+
+          <strong class="ranking-value">
+            {{ store.value }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- INCIDENT SEVERITY -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <div>
+          <h2>Incident Severity</h2>
+          <p>Distribution of operational incidents.</p>
+        </div>
+
+        <div class="total-badge">
+          {{ totalIncidents }} total
+        </div>
+
+      </div>
+
+
+      <div class="severity-item">
+
+        <div class="severity-top">
+          <span class="severity-name high">
+            High
+          </span>
+
+          <strong>
+            {{ highIncidents }}
+          </strong>
+        </div>
+
+        <div class="severity-track">
+          <div
+            class="severity-fill high-fill"
+            [style.width.%]="getSeverityWidth(highIncidents)"
+          >
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="severity-item">
+
+        <div class="severity-top">
+          <span class="severity-name medium">
+            Medium
+          </span>
+
+          <strong>
+            {{ mediumIncidents }}
+          </strong>
+        </div>
+
+        <div class="severity-track">
+          <div
+            class="severity-fill medium-fill"
+            [style.width.%]="getSeverityWidth(mediumIncidents)"
+          >
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="severity-item">
+
+        <div class="severity-top">
+          <span class="severity-name low">
+            Low
+          </span>
+
+          <strong>
+            {{ lowIncidents }}
+          </strong>
+        </div>
+
+        <div class="severity-track">
+          <div
+            class="severity-fill low-fill"
+            [style.width.%]="getSeverityWidth(lowIncidents)"
+          >
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ANOMALIES -->
+
+    <section class="panel full-width">
+
+      <div class="panel-header">
+
+        <div>
+          <h2>Stores by Anomaly Count</h2>
+          <p>
+            Stores showing the highest number of operational anomalies.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="anomaly-grid">
+
+        <div
+          class="anomaly-card"
+          *ngFor="let store of insights.topAnomalyStores"
+        >
+
+          <div class="anomaly-header">
+
+            <a
+              class="store-link"
+              [routerLink]="['/stores', store.storeId]"
+            >
+              Store {{ store.storeId }}
+            </a>
+
+            <span class="anomaly-count">
+              {{ store.value }}
+            </span>
+
+          </div>
+
+
+          <div class="anomaly-label">
+            anomalies detected
+          </div>
+
+
+          <div class="anomaly-track">
+            <div
+              class="anomaly-fill"
+              [style.width.%]="getAnomalyWidth(store.value)"
+            >
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>

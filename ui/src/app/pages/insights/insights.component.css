@@ -1,0 +1,369 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #172033;
+}
+
+.page-header p {
+  margin: 7px 0 0;
+  color: #7a8799;
+  font-size: 14px;
+}
+
+.refresh-button {
+  border: 1px solid #d7e1ed;
+  background: white;
+  color: #42546d;
+  padding: 9px 15px;
+  border-radius: 7px;
+  font-weight: 600;
+}
+
+.refresh-button:hover {
+  background: #f6f9fd;
+}
+
+
+/* SUMMARY */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.summary-card {
+  background: white;
+  border: 1px solid #e4eaf1;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 3px 12px rgba(28, 45, 75, 0.045);
+}
+
+.summary-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pump-icon {
+  color: #2f80ed;
+  background: #e8f1ff;
+}
+
+.incident-icon {
+  color: #9a6bd8;
+  background: #f0e8fb;
+}
+
+.high-icon {
+  color: #ce4545;
+  background: #fde9e9;
+}
+
+.anomaly-icon {
+  color: #c07c18;
+  background: #fff2d8;
+}
+
+.summary-label {
+  color: #68768b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.summary-value {
+  margin-top: 3px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #172238;
+}
+
+.summary-note {
+  margin-top: 2px;
+  color: #929dac;
+  font-size: 11px;
+}
+
+.summary-note.danger {
+  color: #c44a4a;
+}
+
+
+/* PANELS */
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 20px;
+}
+
+.panel {
+  background: white;
+  border: 1px solid #e4eaf1;
+  border-radius: 12px;
+  padding: 21px;
+  box-shadow: 0 3px 12px rgba(28, 45, 75, 0.04);
+}
+
+.panel.full-width {
+  grid-column: 1 / -1;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  color: #1c293b;
+  font-size: 17px;
+}
+
+.panel-header p {
+  margin: 5px 0 0;
+  color: #8b97a7;
+  font-size: 12px;
+}
+
+.panel-header a {
+  font-size: 12px;
+  color: #2f80ed;
+  font-weight: 600;
+}
+
+.total-badge {
+  background: #edf4ff;
+  color: #2f6fc2;
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* RANKING */
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ranking-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 35px;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 0;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.ranking-row:last-child {
+  border-bottom: none;
+}
+
+.ranking-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.store-link {
+  color: #2676df;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.store-link:hover {
+  text-decoration: underline;
+}
+
+.ranking-info span {
+  margin-top: 3px;
+  color: #929dac;
+  font-size: 10px;
+}
+
+.bar-container {
+  height: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #edf1f5;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.offline-bar {
+  background: linear-gradient(
+    90deg,
+    #f0a63a,
+    #e26161
+  );
+}
+
+.ranking-value {
+  text-align: right;
+  color: #354257;
+}
+
+
+/* SEVERITY */
+
+.severity-item {
+  margin-bottom: 23px;
+}
+
+.severity-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.severity-name {
+  font-weight: 600;
+}
+
+.severity-name.high {
+  color: #c94444;
+}
+
+.severity-name.medium {
+  color: #ba7b18;
+}
+
+.severity-name.low {
+  color: #3476bd;
+}
+
+.severity-track {
+  height: 9px;
+  background: #eef1f5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.severity-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.high-fill {
+  background: #df5b5b;
+}
+
+.medium-fill {
+  background: #eda640;
+}
+
+.low-fill {
+  background: #4389dc;
+}
+
+
+/* ANOMALIES */
+
+.anomaly-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 13px;
+}
+
+.anomaly-card {
+  border: 1px solid #e8edf3;
+  border-radius: 9px;
+  padding: 15px;
+  background: #fbfcfe;
+}
+
+.anomaly-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.anomaly-count {
+  background: #fff0d7;
+  color: #b87214;
+  border-radius: 20px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.anomaly-label {
+  color: #919cad;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.anomaly-track {
+  height: 5px;
+  background: #edf1f5;
+  margin-top: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.anomaly-fill {
+  height: 100%;
+  background: #e5a13b;
+  border-radius: 10px;
+}
+
+
+/* MESSAGES */
+
+.message-card {
+  background: white;
+  border: 1px solid #e4eaf1;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  color: #738096;
+}
+
+.message-card.error {
+  color: #c94444;
+}
+
+
+@media (max-width: 1000px) {
+
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel.full-width {
+    grid-column: auto;
+  }
+
+  .anomaly-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

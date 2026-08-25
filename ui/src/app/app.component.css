@@ -1,0 +1,150 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #0f2c55 0%,
+    #0b2345 100%
+  );
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 28px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: #2f80ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.logo-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.logo-subtitle {
+  font-size: 12px;
+  color: #a9bfd9;
+  margin-top: 2px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 7px;
+  color: #d6e1ef;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.sidebar-nav a.active {
+  background: #2f80ed;
+  color: white;
+}
+
+.nav-icon {
+  width: 18px;
+  text-align: center;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 8px 0;
+  font-size: 11px;
+  color: #819bb9;
+}
+
+.main-area {
+  margin-left: 230px;
+  width: calc(100% - 230px);
+}
+
+.topbar {
+  height: 74px;
+  background: white;
+  border-bottom: 1px solid #e6ebf2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.topbar-title {
+  font-weight: 700;
+  font-size: 17px;
+  color: #172033;
+}
+
+.topbar-subtitle {
+  font-size: 12px;
+  color: #8492a6;
+  margin-top: 3px;
+}
+
+.environment-badge {
+  padding: 6px 11px;
+  background: #eef5ff;
+  color: #2f80ed;
+  border: 1px solid #d8e8ff;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.page-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 30px 32px 50px;
+}
+
+@media (max-width: 800px) {
+
+  .sidebar {
+    width: 190px;
+  }
+
+  .main-area {
+    margin-left: 190px;
+    width: calc(100% - 190px);
+  }
+
+  .page-container {
+    padding: 20px;
+  }
+}

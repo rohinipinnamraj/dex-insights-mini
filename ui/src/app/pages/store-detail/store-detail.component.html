@@ -1,0 +1,49 @@
+<h1>Store Detail</h1>
+
+<p *ngIf="loading">Loading...</p>
+
+<p *ngIf="errorMessage">
+  {{ errorMessage }}
+</p>
+
+<div *ngIf="store">
+  <p><strong>Store ID:</strong> {{ store.storeId }}</p>
+  <p><strong>Brand:</strong> {{ store.brand }}</p>
+  <p><strong>Status:</strong> {{ store.status }}</p>
+
+  <p>
+    <strong>Total Pumps:</strong>
+    {{ store.totalPumps }}
+  </p>
+
+  <p>
+    <strong>Active Pumps:</strong>
+    {{ store.activePumps }}
+  </p>
+
+  <p>
+    <strong>Offline Pumps:</strong>
+    {{ store.offlinePumps }}
+  </p>
+
+  <p>
+    <strong>Anomaly Count:</strong>
+    {{ store.anomalyCount }}
+  </p>
+
+  <p>
+    <strong>Hyper Care:</strong>
+    {{ store.hyperCare }}
+  </p>
+
+  <p>
+    <strong>Location:</strong>
+    {{ store.storeAddress.city }},
+    {{ store.storeAddress.state }}
+  </p>
+
+  <p>
+    <strong>Last Updated:</strong>
+    {{ store.lastUpdatedTime }}
+  </p>
+</div>

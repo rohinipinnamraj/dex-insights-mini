@@ -1,0 +1,316 @@
+<div class="page-header">
+
+  <div>
+    <h1>Stores</h1>
+    <p>Monitor store availability and operational health.</p>
+  </div>
+
+  <div class="store-count">
+    {{ stores.length }} stores shown
+  </div>
+
+</div>
+
+<!-- KPI CARDS -->
+
+<div class="summary-grid">
+
+  <div class="summary-card">
+    <div class="summary-icon total-icon">
+      S
+    </div>
+
+    <div>
+      <div class="summary-label">Total Stores</div>
+      <div class="summary-value">{{ totalStores }}</div>
+      <div class="summary-note">All locations</div>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-icon online-icon">
+      ✓
+    </div>
+
+    <div>
+      <div class="summary-label">Online</div>
+      <div class="summary-value">{{ onlineStores }}</div>
+      <div class="summary-note good">Operating normally</div>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-icon degraded-icon">
+      !
+    </div>
+
+    <div>
+      <div class="summary-label">Degraded</div>
+      <div class="summary-value">{{ degradedStores }}</div>
+      <div class="summary-note warning">Needs attention</div>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-icon offline-icon">
+      ×
+    </div>
+
+    <div>
+      <div class="summary-label">Offline</div>
+      <div class="summary-value">{{ offlineStores }}</div>
+      <div class="summary-note danger">Critical</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FILTER PANEL -->
+
+<div class="filter-card">
+
+  <div class="filter-heading">
+    <div>
+      <h2>Store Directory</h2>
+      <p>Filter and review operational status.</p>
+    </div>
+  </div>
+
+  <div class="filters">
+
+    <div class="form-group">
+      <label for="brand">Brand</label>
+
+      <input
+        id="brand"
+        type="text"
+        [(ngModel)]="brand"
+        placeholder="Search brand"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status</label>
+
+      <select
+        id="status"
+        [(ngModel)]="status"
+      >
+        <option value="">All statuses</option>
+        <option value="ONLINE">Online</option>
+        <option value="DEGRADED">Degraded</option>
+        <option value="OFFLINE">Offline</option>
+      </select>
+    </div>
+
+    <div class="sort-option">
+
+      <label>
+        <input
+          type="checkbox"
+          [(ngModel)]="sortOfflinePumpsDesc"
+        />
+
+        <span>Highest offline pumps first</span>
+      </label>
+
+    </div>
+
+    <div class="filter-actions">
+
+      <button
+        class="primary-button"
+        (click)="applyFilters()"
+      >
+        Apply Filters
+      </button>
+
+      <button
+        class="secondary-button"
+        (click)="clearFilters()"
+      >
+        Reset
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- STATES -->
+
+<div
+  *ngIf="loading"
+  class="message-card"
+>
+  Loading stores...
+</div>
+
+<div
+  *ngIf="errorMessage"
+  class="message-card error"
+>
+  {{ errorMessage }}
+</div>
+
+<!-- TABLE -->
+
+<div
+  class="table-card"
+  *ngIf="!loading && stores.length > 0"
+>
+
+  <div class="table-header">
+
+    <div>
+      <h2>Store Status</h2>
+      <p>Current operational snapshot.</p>
+    </div>
+
+    <div class="result-count">
+      {{ stores.length }} results
+    </div>
+
+  </div>
+
+  <div class="table-wrapper">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Store</th>
+          <th>Brand</th>
+          <th>Status</th>
+          <th>Pump Health</th>
+          <th>Offline</th>
+          <th>Anomalies</th>
+          <th>Location</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let store of stores">
+
+          <td>
+            <a
+              class="store-id"
+              [routerLink]="['/stores', store.storeId]"
+            >
+              {{ store.storeId }}
+            </a>
+          </td>
+
+          <td>
+            <span class="brand-name">
+              {{ store.brand }}
+            </span>
+          </td>
+
+          <td>
+
+            <span
+              class="status-badge"
+              [class.status-online]="store.status === 'ONLINE'"
+              [class.status-degraded]="store.status === 'DEGRADED'"
+              [class.status-offline]="store.status === 'OFFLINE'"
+            >
+              <span class="status-dot"></span>
+              {{ store.status }}
+            </span>
+
+          </td>
+
+          <td>
+
+            <div class="pump-health">
+
+              <strong>
+                {{ store.activePumps }}/{{ store.totalPumps }}
+              </strong>
+
+              <span>
+                active
+              </span>
+
+            </div>
+
+          </td>
+
+          <td>
+
+            <span
+              class="metric-pill"
+              [class.metric-warning]="store.offlinePumps > 0"
+              [class.metric-critical]="store.offlinePumps >= 5"
+            >
+              {{ store.offlinePumps }}
+            </span>
+
+          </td>
+
+          <td>
+
+            <span
+              class="anomaly-value"
+              [class.has-anomaly]="store.anomalyCount > 0"
+            >
+              {{ store.anomalyCount }}
+            </span>
+
+          </td>
+
+          <td>
+
+            <div class="location">
+              <strong>
+                {{ store.storeAddress.city }}
+              </strong>
+
+              <span>
+                {{ store.storeAddress.state }}
+              </span>
+            </div>
+
+          </td>
+
+          <td>
+
+            <a
+              class="view-button"
+              [routerLink]="['/stores', store.storeId]"
+            >
+              View →
+            </a>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<div
+  *ngIf="!loading && stores.length === 0"
+  class="empty-state"
+>
+
+  <h3>No stores found</h3>
+  <p>Try changing your filters.</p>
+
+  <button
+    class="secondary-button"
+    (click)="clearFilters()"
+  >
+    Clear Filters
+  </button>
+
+</div>

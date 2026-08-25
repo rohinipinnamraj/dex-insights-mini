@@ -1,0 +1,278 @@
+<div class="page-header">
+
+  <div>
+    <h1>Ask Dex Insights</h1>
+
+    <p>
+      Ask questions grounded in store, incident and transaction data.
+    </p>
+  </div>
+
+  <div class="grounded-badge">
+    ● Dataset Grounded
+  </div>
+
+</div>
+
+
+<div class="chat-layout">
+
+
+  <!-- LEFT SIDE -->
+
+  <div>
+
+    <section class="question-card">
+
+      <div class="question-heading">
+
+        <div class="chat-icon">
+          D
+        </div>
+
+        <div>
+          <h2>What would you like to know?</h2>
+          <p>
+            Answers are generated only from retrieved dataset records.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="storeId">
+          Store ID
+          <span>Optional</span>
+        </label>
+
+        <input
+          id="storeId"
+          type="text"
+          [(ngModel)]="storeId"
+          placeholder="Example: 10001"
+        />
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="question">
+          Question
+        </label>
+
+        <textarea
+          id="question"
+          [(ngModel)]="question"
+          rows="5"
+          placeholder="Ask about store health, incidents, offline pumps or recent activity..."
+        >
+        </textarea>
+
+      </div>
+
+
+      <div class="form-actions">
+
+        <button
+          class="ask-button"
+          (click)="askQuestion()"
+          [disabled]="loading"
+        >
+          {{ loading ? 'Retrieving...' : 'Ask Dex Insights' }}
+        </button>
+
+        <button
+          class="clear-button"
+          (click)="clear()"
+        >
+          Clear
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- RESPONSE -->
+
+    <section
+      class="answer-card"
+      *ngIf="response"
+    >
+
+      <div class="answer-header">
+
+        <div class="answer-icon">
+          ✓
+        </div>
+
+        <div>
+          <h2>Grounded Answer</h2>
+          <p>Generated from retrieved dataset context.</p>
+        </div>
+
+      </div>
+
+
+      <div class="answer-content">
+        {{ response.answer }}
+      </div>
+
+
+      <div class="context-box">
+
+        <div class="context-label">
+          Retrieved Context
+        </div>
+
+        <div class="context-text">
+          {{ response.retrievedContextSummary }}
+        </div>
+
+      </div>
+
+
+      <div class="citations-section">
+
+        <div class="citations-header">
+
+          <h3>
+            Sources
+          </h3>
+
+          <span>
+            {{ response.citations.length }}
+            citations
+          </span>
+
+        </div>
+
+
+        <div
+          class="no-citations"
+          *ngIf="response.citations.length === 0"
+        >
+          No source records were applicable to this question.
+        </div>
+
+
+        <div
+          class="citation-list"
+          *ngIf="response.citations.length > 0"
+        >
+
+          <div
+            class="citation-card"
+            *ngFor="let citation of response.citations"
+          >
+
+            <div
+              class="citation-type"
+              [class.store]="citation.recordType === 'STORE'"
+              [class.incident]="citation.recordType === 'INCIDENT'"
+              [class.transaction]="citation.recordType === 'TRANSACTION'"
+            >
+              {{ citation.recordType }}
+            </div>
+
+            <div class="citation-details">
+
+              <strong>
+                {{ citation.recordId }}
+              </strong>
+
+              <span>
+                Store {{ citation.storeId }}
+              </span>
+
+              <small>
+                {{ citation.timestamp }}
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <div
+      class="error-message"
+      *ngIf="errorMessage"
+    >
+      {{ errorMessage }}
+    </div>
+
+  </div>
+
+
+  <!-- RIGHT SIDE -->
+
+  <aside>
+
+    <section class="side-card">
+
+      <h3>Example Questions</h3>
+
+      <p>
+        Try one of the questions used to evaluate the application.
+      </p>
+
+
+      <button
+        class="sample-question"
+        *ngFor="let sample of sampleQuestions"
+        (click)="useSampleQuestion(sample)"
+      >
+
+        <span>
+          {{ sample }}
+        </span>
+
+        <strong>→</strong>
+
+      </button>
+
+    </section>
+
+
+    <section class="side-card info-card">
+
+      <div class="info-icon">
+        i
+      </div>
+
+      <h3>How grounding works</h3>
+
+      <p>
+        The service retrieves relevant store, incident and transaction
+        records before generating an answer.
+      </p>
+
+      <div class="flow">
+
+        <span>Question</span>
+        <strong>↓</strong>
+
+        <span>Retrieval</span>
+        <strong>↓</strong>
+
+        <span>Context</span>
+        <strong>↓</strong>
+
+        <span>Answer + Sources</span>
+
+      </div>
+
+    </section>
+
+  </aside>
+
+</div>
