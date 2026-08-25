@@ -72,6 +72,14 @@ export class InsightsComponent implements OnInit {
     return this.insights?.topAnomalyStores[0]?.value || 0;
   }
 
+  get topOfflineStoreId(): string {
+  return this.insights?.topOfflinePumpStores[0]?.storeId || '-';
+  }
+
+  get topAnomalyStoreId(): string {
+  return this.insights?.topAnomalyStores[0]?.storeId || '-';
+  }
+
   getSeverityWidth(count: number): number {
     if (this.totalIncidents === 0) {
       return 0;

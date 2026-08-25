@@ -51,12 +51,12 @@
         </div>
 
         <div class="summary-value">
-          {{ insights.topOfflinePumpStores[0]?.value || 0 }}
+          {{ highestOfflinePumps }}
         </div>
 
         <div class="summary-note">
           Store
-          {{ insights.topOfflinePumpStores[0]?.storeId || '-' }}
+          {{ topOfflineStoreId }}
         </div>
       </div>
 
@@ -121,12 +121,12 @@
         </div>
 
         <div class="summary-value">
-          {{ insights.topAnomalyStores[0]?.value || 0 }}
+          {{ highestAnomalies }}
         </div>
 
         <div class="summary-note">
           Store
-          {{ insights.topAnomalyStores[0]?.storeId || '-' }}
+          {{ topAnomalyStoreId }}
         </div>
       </div>
 
